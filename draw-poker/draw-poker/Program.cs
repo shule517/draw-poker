@@ -53,12 +53,22 @@ namespace draw_poker
             */
 
             Stock stock = new Stock();
+            stock.Shuffle();
+            var cardList = stock.Draw(5);
 
-            for (int i = 0; stock.Count > 0; i++)
+            Dealer dealer = new Dealer();
+
+            var hand = new []
             {
-                Card card = stock.Draw();
-                Console.WriteLine(card);
-            }
+                new Card(Suit.Clubs, CardNo.A),
+                new Card(Suit.Diamonds, CardNo.A),
+                new Card(Suit.Hearts, CardNo.No2),
+                new Card(Suit.Hearts, CardNo.No3),
+                new Card(Suit.Hearts, CardNo.No4),
+            };
+            var rank = dealer.JudgeRank(hand);
+
+            Console.WriteLine("rank:" + rank);
         }
     }
 }

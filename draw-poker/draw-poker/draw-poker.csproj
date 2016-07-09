@@ -45,10 +45,13 @@
   <ItemGroup>
     <Compile Include="domain\Card.cs" />
     <Compile Include="domain\CardNo.cs" />
+    <Compile Include="domain\Dealer.cs" />
+    <Compile Include="domain\Rank.cs" />
     <Compile Include="domain\Stock.cs" />
     <Compile Include="domain\Suit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="util\ListExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
