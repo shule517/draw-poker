@@ -38,6 +38,12 @@ namespace draw_poker.domain.Tests
         {
             AreEqual("♧0♢J♧Q♢K♡A", Rank.Straight);
             AreNotEqual("♧0♢0♧Q♢K♡A", Rank.Straight);
+
+            AreEqual("♡0♢J♧Q♢K♧A", Rank.Straight);
+            AreEqual("♡A♢2♧3♢4♧5", Rank.Straight);
+            AreNotEqual("♧K♢A♧2♢3♡4", Rank.Straight);
+            AreNotEqual("♧Q♢K♧A♢2♡3", Rank.Straight);
+            AreNotEqual("♧J♢Q♧K♢A♡2", Rank.Straight);
         }
 
         [TestMethod()]
