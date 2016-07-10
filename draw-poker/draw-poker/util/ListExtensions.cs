@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace draw_poker.util
 {
@@ -28,6 +29,18 @@ namespace draw_poker.util
         public static void Push<T>(this IList<T> self, T item)
         {
             self.Insert(0, item);
+        }
+
+        /// <summary>
+        /// Break a list of items into chunks of a specific size
+        /// </summary>
+        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunksize)
+        {
+            while (source.Any())
+            {
+                yield return source.Take(chunksize);
+                source = source.Skip(chunksize);
+            }
         }
     }
 }

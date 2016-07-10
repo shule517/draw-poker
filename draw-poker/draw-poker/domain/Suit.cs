@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace draw_poker.domain
+﻿namespace draw_poker.domain
 {
     public enum Suit : int
     {

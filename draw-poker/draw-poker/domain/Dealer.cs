@@ -36,7 +36,7 @@ namespace draw_poker.domain
             return Rank.HighCards;
         }
 
-        private static bool IsStraight(IEnumerable<Card> hand)
+        private bool IsStraight(IEnumerable<Card> hand)
         {
             var allKindsCardNo =
                 from card in hand

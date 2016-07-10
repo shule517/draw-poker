@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using draw_poker.domain;
+using System;
 using System.Text;
-using System.Threading.Tasks;
-using draw_poker.domain;
-using System.Collections;
 
 namespace draw_poker
 {
@@ -54,9 +50,22 @@ namespace draw_poker
 
             Stock stock = new Stock();
             stock.Shuffle();
-            var cardList = stock.Draw(5);
 
-            Dealer dealer = new Dealer();
+            for (int i = 0; i < 10; i++)
+            {
+                var hand = stock.Draw(5);
+
+                Dealer dealer = new Dealer();
+                var rank = dealer.JudgeRank(hand);
+
+                foreach (var card in hand)
+                {
+                    Console.WriteLine(card);
+                }
+                Console.WriteLine("=> rank:" + rank);
+            }
+
+            /*
 
             var hand = new []
             {
@@ -69,6 +78,7 @@ namespace draw_poker
             var rank = dealer.JudgeRank(hand);
 
             Console.WriteLine("rank:" + rank);
+            */
         }
     }
 }

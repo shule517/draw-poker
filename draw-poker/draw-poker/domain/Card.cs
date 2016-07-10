@@ -13,12 +13,7 @@
 
         public override string ToString()
         {
-            return string.Format("[{0}{1:D2}]", this.Suit.GetName(), this.CardNo.GetValue());
+            return string.Format("[{0}{1}]", this.Suit.GetName(), this.CardNo);
         }
     }
-}
-
-class One
-{
-    public int Value { get { return 1; }  }
 }

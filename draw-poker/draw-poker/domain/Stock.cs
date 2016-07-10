@@ -22,13 +22,13 @@ namespace draw_poker.domain
 
         public Card Draw()
         {
-            return Draw();
+            return Draw(1).Single();
         }
 
         public IEnumerable<Card> Draw(int number)
         {
             List<Card> list = new List<Card>();
-            for (int i = 0; i < 0; i++)
+            for (int i = 0; i < number; i++)
             {
                 list.Add(cardList.Pop());
             }

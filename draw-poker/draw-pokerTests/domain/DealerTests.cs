@@ -1,10 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using draw_poker.domain;
+﻿using draw_poker.util;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace draw_poker.domain.Tests
 {
@@ -12,93 +10,145 @@ namespace draw_poker.domain.Tests
     public class DealerTests
     {
         [TestMethod()]
+        public void 役判定_ブタ()
+        {
+            AreEqual("♢A♧J♤0♤7♤2", Rank.HighCards);
+        }
+
+        [TestMethod()]
         public void 役判定_ワンペア()
         {
-            Dealer dealer = new Dealer();
+            AreEqual("♧A♢A♡2♡3♡4", Rank.OnePair);
+        }
 
-            var hand = new[]
-            {
-                new Card(Suit.Clubs,    CardNo.A),
-                new Card(Suit.Diamonds, CardNo.A),
-                new Card(Suit.Hearts,   CardNo.No2),
-                new Card(Suit.Hearts,   CardNo.No3),
-                new Card(Suit.Hearts,   CardNo.No4),
-            };
-            var rank = dealer.JudgeRank(hand);
+        [TestMethod()]
+        public void 役判定_ツーペア()
+        {
+            AreEqual("♢A♧A♡2♢2♧9", Rank.TwoPair);
+        }
 
-            Assert.AreEqual(Rank.OnePair, rank);
+        [TestMethod()]
+        public void 役判定_スリーカード()
+        {
+            AreEqual("♡K♢K♧K♡J♤7", Rank.ThreeOfAKind);
+        }
+
+        [TestMethod()]
+        public void 役判定_ストレート()
+        {
+            AreEqual("♧0♢J♧Q♢K♡A", Rank.Straight);
+            AreNotEqual("♧0♢0♧Q♢K♡A", Rank.Straight);
+        }
+
+        [TestMethod()]
+        public void 役判定_フラッシュ()
+        {
+            AreEqual("♧Q♧J♧8♧6♧5", Rank.Flush);
         }
 
         [TestMethod()]
         public void 役判定_フルハウス()
         {
-            Dealer dealer = new Dealer();
-
-            var hand = new[]
-            {
-                new Card(Suit.Clubs,    CardNo.A),
-                new Card(Suit.Diamonds, CardNo.A),
-                new Card(Suit.Clubs,    CardNo.No2),
-                new Card(Suit.Diamonds, CardNo.No2),
-                new Card(Suit.Hearts,   CardNo.No2),
-            };
-            var rank = dealer.JudgeRank(hand);
-
-            Assert.AreEqual(Rank.FullHouse, rank);
+            AreEqual("♧A♢A♧2♢2♡2", Rank.FullHouse);
         }
 
         [TestMethod()]
-        public void 役判定_ストレート1()
+        public void 役判定_フォーカード()
         {
-            Dealer dealer = new Dealer();
-
-            var hand = new[]
-            {
-                new Card(Suit.Clubs,    CardNo.No10),
-                new Card(Suit.Diamonds, CardNo.J),
-                new Card(Suit.Clubs,    CardNo.Q),
-                new Card(Suit.Diamonds, CardNo.K),
-                new Card(Suit.Hearts,   CardNo.A),
-            };
-            var rank = dealer.JudgeRank(hand);
-
-            Assert.AreEqual(Rank.Straight, rank);
-        }
-
-        [TestMethod()]
-        public void 役判定_ストレート2()
-        {
-            Dealer dealer = new Dealer();
-
-            var hand = new[]
-            {
-                new Card(Suit.Clubs,    CardNo.No10),
-                new Card(Suit.Diamonds, CardNo.No10),
-                new Card(Suit.Clubs,    CardNo.Q),
-                new Card(Suit.Diamonds, CardNo.K),
-                new Card(Suit.Hearts,   CardNo.A),
-            };
-            var rank = dealer.JudgeRank(hand);
-
-            Assert.AreNotEqual(Rank.Straight, rank);
+            AreEqual("♤6♡6♢6♧6♢K", Rank.FourOfAKind);
         }
 
         [TestMethod()]
         public void 役判定_ストレートフラッシュ()
         {
+            AreEqual("♡0♡J♡Q♡K♡A", Rank.StraightFlush);
+        }
+
+        private void AreEqual(string hand, Rank rank)
+        {
+            AreEqual(hand, rank, Assert.AreEqual);
+        }
+
+        private void AreNotEqual(string hand, Rank rank)
+        {
+            AreEqual(hand, rank, Assert.AreNotEqual);
+        }
+
+        private void AreEqual(string hand, Rank rank, Action<Rank, Rank> areEqual)
+        {
+            var hands = hand.Chunk(2).Select(card => parseCard(card));
+
             Dealer dealer = new Dealer();
+            var resultRank = dealer.JudgeRank(hands);
+            areEqual(rank, resultRank);
+        }
 
-            var hand = new[]
+        private Card parseCard(IEnumerable<char> card)
+        {
+            Suit suit;
+            switch (card.ElementAt(0))
             {
-                new Card(Suit.Hearts, CardNo.No10),
-                new Card(Suit.Hearts, CardNo.J),
-                new Card(Suit.Hearts, CardNo.Q),
-                new Card(Suit.Hearts, CardNo.K),
-                new Card(Suit.Hearts, CardNo.A),
-            };
-            var rank = dealer.JudgeRank(hand);
-
-            Assert.AreEqual(Rank.StraightFlush, rank);
+                case '♡':
+                    suit = Suit.Hearts;
+                    break;
+                case '♢':
+                    suit = Suit.Diamonds;
+                    break;
+                case '♧':
+                    suit = Suit.Clubs;
+                    break;
+                case '♤':
+                    suit = Suit.Spade;
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+            CardNo cardNo;
+            switch (card.ElementAt(1))
+            {
+                case 'A':
+                    cardNo = CardNo.A;
+                    break;
+                case '2':
+                    cardNo = CardNo.No2;
+                    break;
+                case '3':
+                    cardNo = CardNo.No3;
+                    break;
+                case '4':
+                    cardNo = CardNo.No4;
+                    break;
+                case '5':
+                    cardNo = CardNo.No5;
+                    break;
+                case '6':
+                    cardNo = CardNo.No6;
+                    break;
+                case '7':
+                    cardNo = CardNo.No7;
+                    break;
+                case '8':
+                    cardNo = CardNo.No8;
+                    break;
+                case '9':
+                    cardNo = CardNo.No9;
+                    break;
+                case '0':
+                    cardNo = CardNo.No10;
+                    break;
+                case 'J':
+                    cardNo = CardNo.J;
+                    break;
+                case 'Q':
+                    cardNo = CardNo.Q;
+                    break;
+                case 'K':
+                    cardNo = CardNo.K;
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+            return new Card(suit, cardNo);
         }
     }
 }
