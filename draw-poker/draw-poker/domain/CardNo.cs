@@ -4,7 +4,6 @@ namespace draw_poker.domain
 {
     public enum CardNo
     {
-        A = 1,
         No2 = 2,
         No3 = 3,
         No4 = 4,
@@ -17,6 +16,7 @@ namespace draw_poker.domain
         J = 11,
         Q = 12,
         K = 13,
+        A = 14,
     }
 
     static class CardNoExtension

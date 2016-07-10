@@ -1,6 +1,6 @@
 ﻿namespace draw_poker.domain
 {
-    enum Rank
+    public enum Rank
     {
         HighCards,      // ハイ・カード（いわゆるブタ）
         OnePair,        // ワンペア

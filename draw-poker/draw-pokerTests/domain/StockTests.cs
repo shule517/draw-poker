@@ -12,9 +12,10 @@ namespace draw_poker.domain.Tests
     public class StockTests
     {
         [TestMethod()]
-        public void StockTest()
+        public void カードは全部で52枚()
         {
-            Assert.Fail();
+            Stock stock = new Stock();
+            Assert.AreEqual(stock.Count, (13*4));
         }
     }
 }
