@@ -17,8 +17,15 @@ namespace draw_poker.domain.Tests
         public void カードを5枚引く()
         {
             Stock stock = new Stock();
-            var cards = stock.Draw(5);
-            Assert.AreEqual(5, cards.Count());
+            var cardsA = stock.Draw(5);
+            var cardsB = stock.Draw(5);
+
+            // 受け取った枚数は５枚
+            Assert.AreEqual(5, cardsA.Count());
+            // 次の５枚は違うカード
+            bool equalSuit = cardsA.ElementAt(0).Suit == (cardsB).ElementAt(0).Suit;
+            bool equalCardNo = cardsA.ElementAt(0).CardNo == (cardsB).ElementAt(0).CardNo;
+            Assert.IsFalse(equalSuit && equalCardNo);
         }
 
         [TestMethod()]

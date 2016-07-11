@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using draw_poker.util;
 
 namespace draw_poker.domain
 {
@@ -26,12 +25,19 @@ namespace draw_poker.domain
 
         public IEnumerable<Card> Draw(int count)
         {
-            return cards.Pop(count);
+            return Pop(count);
+        }
+
+        private IEnumerable<Card> Pop(int count)
+        {
+            var result = cards.Take(count);
+            cards = cards.Skip(count).ToList();
+            return result;
         }
 
         public void Shuffle()
         {
-            cards = cards.OrderBy(x => random.Next());
+            cards = cards.OrderBy(x => random.Next()).ToList();
         }
     }
 }

@@ -21,7 +21,18 @@
     {
         public static string GetName(this CardNo cardNo)
         {
-            return GetValue(cardNo).ToString();
+            switch (cardNo)
+            {
+                case CardNo.A:
+                case CardNo.J:
+                case CardNo.Q:
+                case CardNo.K:
+                    return cardNo.ToString();
+                case CardNo._10:
+                    return "0";
+                default:
+                    return cardNo.ToString().Substring(1, 1);
+            }
         }
 
         public static int GetValue(this CardNo cardNo)
