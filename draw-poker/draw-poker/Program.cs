@@ -55,8 +55,8 @@ namespace draw_poker
             {
                 var hand = stock.Draw(5);
 
-                Dealer dealer = new Dealer();
-                var rank = dealer.JudgeRank(hand);
+                PokerRule rule = new PokerRule();
+                var rank = rule.JudgeRank(hand);
 
                 foreach (var card in hand)
                 {
@@ -64,21 +64,6 @@ namespace draw_poker
                 }
                 Console.WriteLine("=> rank:" + rank);
             }
-
-            /*
-
-            var hand = new []
-            {
-                new Card(Suit.Clubs, CardNo.A),
-                new Card(Suit.Diamonds, CardNo.A),
-                new Card(Suit.Hearts, CardNo.No2),
-                new Card(Suit.Hearts, CardNo.No3),
-                new Card(Suit.Hearts, CardNo.No4),
-            };
-            var rank = dealer.JudgeRank(hand);
-
-            Console.WriteLine("rank:" + rank);
-            */
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 namespace draw_poker.domain.Tests
 {
     [TestClass()]
-    public class DealerTests
+    public class PokerRuleTests
     {
         [TestMethod()]
         public void 役判定_ブタ()
@@ -84,8 +84,8 @@ namespace draw_poker.domain.Tests
         {
             var hands = hand.Chunk(2).Select(card => parseCard(card));
 
-            Dealer dealer = new Dealer();
-            var resultRank = dealer.JudgeRank(hands);
+            PokerRule rule = new PokerRule();
+            var resultRank = rule.JudgeRank(hands);
             areEqual(rank, resultRank);
         }
 
@@ -116,31 +116,31 @@ namespace draw_poker.domain.Tests
                     cardNo = CardNo.A;
                     break;
                 case '2':
-                    cardNo = CardNo.No2;
+                    cardNo = CardNo._2;
                     break;
                 case '3':
-                    cardNo = CardNo.No3;
+                    cardNo = CardNo._3;
                     break;
                 case '4':
-                    cardNo = CardNo.No4;
+                    cardNo = CardNo._4;
                     break;
                 case '5':
-                    cardNo = CardNo.No5;
+                    cardNo = CardNo._5;
                     break;
                 case '6':
-                    cardNo = CardNo.No6;
+                    cardNo = CardNo._6;
                     break;
                 case '7':
-                    cardNo = CardNo.No7;
+                    cardNo = CardNo._7;
                     break;
                 case '8':
-                    cardNo = CardNo.No8;
+                    cardNo = CardNo._8;
                     break;
                 case '9':
-                    cardNo = CardNo.No9;
+                    cardNo = CardNo._9;
                     break;
                 case '0':
-                    cardNo = CardNo.No10;
+                    cardNo = CardNo._10;
                     break;
                 case 'J':
                     cardNo = CardNo.J;

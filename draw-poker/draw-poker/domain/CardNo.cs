@@ -1,22 +1,20 @@
-﻿using System;
-
-namespace draw_poker.domain
+﻿namespace draw_poker.domain
 {
-    public enum CardNo
+    public enum CardNo : int
     {
-        No2 = 2,
-        No3 = 3,
-        No4 = 4,
-        No5 = 5,
-        No6 = 6,
-        No7 = 7,
-        No8 = 8,
-        No9 = 9,
-        No10 = 10,
+        A = 1,
+        _2 = 2,
+        _3 = 3,
+        _4 = 4,
+        _5 = 5,
+        _6 = 6,
+        _7 = 7,
+        _8 = 8,
+        _9 = 9,
+        _10 = 10,
         J = 11,
         Q = 12,
         K = 13,
-        A = 14,
     }
 
     static class CardNoExtension

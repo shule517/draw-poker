@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace draw_poker.domain
 {
-    public class Dealer
+    public class PokerRule
     {
         public Rank JudgeRank(IEnumerable<Card> hand)
         {
@@ -41,15 +41,15 @@ namespace draw_poker.domain
             var sequence = new CardNo[]
             {
                 CardNo.A,
-                CardNo.No2,
-                CardNo.No3,
-                CardNo.No4,
-                CardNo.No5,
-                CardNo.No6,
-                CardNo.No7,
-                CardNo.No8,
-                CardNo.No9,
-                CardNo.No10,
+                CardNo._2,
+                CardNo._3,
+                CardNo._4,
+                CardNo._5,
+                CardNo._6,
+                CardNo._7,
+                CardNo._8,
+                CardNo._9,
+                CardNo._10,
                 CardNo.J,
                 CardNo.Q,
                 CardNo.K,

@@ -7,17 +7,16 @@ namespace draw_poker.domain
 {
     public class Stock
     {
-        private List<Card> cards;
+        private IEnumerable<Card> cards;
         private Random random = new Random();
-
         public int Count { get { return cards.Count(); } }
 
         public Stock()
         {
             cards =
-                (from suit in Enum.GetValues(typeof(Suit)).Cast<Suit>()
+                from suit in Enum.GetValues(typeof(Suit)).Cast<Suit>()
                 from cardNo in Enum.GetValues(typeof(CardNo)).Cast<CardNo>()
-                select new Card(suit, cardNo)).ToList();
+                    select new Card(suit, cardNo);
         }
 
         public Card Draw()
@@ -25,16 +24,14 @@ namespace draw_poker.domain
             return Draw(1).Single();
         }
 
-        public IEnumerable<Card> Draw(int number)
+        public IEnumerable<Card> Draw(int count)
         {
-            return Enumerable.Range(0, number)
-                .Select(x => cards.Pop())
-                .ToList();
+            return cards.Pop(count);
         }
 
         public void Shuffle()
         {
-            cards = cards.OrderBy(x => random.Next()).ToList();
+            cards = cards.OrderBy(x => random.Next());
         }
     }
 }
