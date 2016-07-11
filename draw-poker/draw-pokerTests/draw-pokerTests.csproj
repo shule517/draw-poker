@@ -51,7 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="domain\DealerTests.cs" />
+    <Compile Include="domain\PokerRuleTests.cs" />
     <Compile Include="domain\StockTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
